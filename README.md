@@ -1,4 +1,5 @@
 # Note Taker [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+[Link to live site](https://samb56.github.io/note-taker/))
   ## table of contents
   - [Description](#description)
   - [Installation](#installation)
@@ -10,6 +11,7 @@
 
   ## Description 
   The note taker application is great for saving notes for storing information on an easy to use and minimalistic browser application. Once you enter the default page, press the corresponding button to enter the notes page. From there an intuative system of entering text data is available to save notes for later to keep ones tasks on track or keep reminders visible.
+  ![screenshot](screenshot.JPG)
 
   ## Installation 
   Installation consists of downloading the zip file, extracting all of the files, and running the server.js through a terminal of your choice. Once you visit the local port, you will be routed to the inital page of the app.
