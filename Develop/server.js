@@ -23,29 +23,31 @@ app.get('/', (req, res) => {
 
 app.get('/api/notes', (req, res) => {
 
-  
-  
-  fs.readFile('./db/db.json', 'utf8', (err,data) =>{
-  if (err) { console.error(err)}
-  else { const displayNotes = JSON.parse(data)
-   res.JSON(displayNotes)
 
-  }}) 
+
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) { console.error(err) }
+    else {
+      const displayNotes = JSON.parse(data)
+      res.json(displayNotes)
+
+    }
+  })
 
   console.info(`${req.method} request received to get notes`);
 });
 
 
 app.post('/api/notes', (req, res) => {
-  
+
   console.info(`${req.method} request received to add a note`);
 
-  
+
   const { title, text, ID } = req.body;
 
- 
+
   if (title && text) {
-    
+
     const newNote = {
       title,
       text,
@@ -53,18 +55,18 @@ app.post('/api/notes', (req, res) => {
 
     };
 
-    
+
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.error(err);
       } else {
-       
+
         const parsedNotes = JSON.parse(data);
 
-        
+
         parsedNotes.push(newNote);
 
-        
+
         fs.writeFile(
           './db/db.json',
           JSON.stringify(parsedNotes, null, 4),
