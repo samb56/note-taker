@@ -16,15 +16,21 @@ app.get('/notes', (req, res) => {
 });
 
 // All other routes respond with the index.html file
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../Develop/public/index.html'));
 });
 
 
 app.get('/api/notes', (req, res) => {
 
-  res.json(`${req.method} request received to get notes`);
+  
+  
+  fs.readFile('./db/db.json', 'utf8', (err,data) =>{
+  if (err) { console.error(err)}
+  else { const displayNotes = JSON.parse(data)
+   res.JSON(displayNotes)
 
+  }}) 
 
   console.info(`${req.method} request received to get notes`);
 });
