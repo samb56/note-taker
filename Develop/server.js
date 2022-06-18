@@ -10,15 +10,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
-);
-//landing page when unfamiliar term is used
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html')))
+// "/notes" responds with the notes.html file
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Develop/public/notes.html'));
+});
 
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html')))
+// All other routes respond with the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Develop/public/index.html'));
+});
 
 
 app.get('/api/notes', (req, res) => {
@@ -29,36 +29,36 @@ app.get('/api/notes', (req, res) => {
   console.info(`${req.method} request received to get notes`);
 });
 
-// POST request to add a review
+
 app.post('/api/notes', (req, res) => {
-  // Log that a POST request was received
+  
   console.info(`${req.method} request received to add a note`);
 
-  // Destructuring assignment for the items in req.body
+  
   const { title, text, ID } = req.body;
 
-  // If all the required properties are present
-  if (title && text && ID) {
-    // Variable for the object we will save
+ 
+  if (title && text) {
+    
     const newNote = {
-      noteTitle,
-      noteText,
-      note_id: uuidv4(),
+      title,
+      text,
+      ID: uuidv4(),
 
     };
 
-    // Obtain existing reviews
-    fs.readFile('/db/db.json', 'utf8', (err, data) => {
+    
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.error(err);
       } else {
-        // Convert string into JSON object
+       
         const parsedNotes = JSON.parse(data);
 
-        // Add a new review
+        
         parsedNotes.push(newNote);
 
-        // Write updated reviews back to the file
+        
         fs.writeFile(
           './db/db.json',
           JSON.stringify(parsedNotes, null, 4),
